@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -40,13 +41,7 @@ public class Cliente {
 	@NotNull
 	@Column(name = "DT_CRIACAO")
     private LocalDateTime dataCriacao;
-    
-    @OneToOne
-    private CartaoRfid cartaoAtivo;
-    
-    @OneToMany(mappedBy = "cliente" ,fetch = FetchType.EAGER)
-    private List<RegistroLog> registrosCartao;
-    
+        
 
 	public Long getId() {
 		return id;
@@ -87,22 +82,9 @@ public class Cliente {
 	public void setDataCriacao(LocalDateTime dataCriacao) {
 		this.dataCriacao = dataCriacao;
 	}
-
-	public CartaoRfid getCartaoAtivo() {
-		return cartaoAtivo;
-	}
-
-	public void setCartaoAtivo(CartaoRfid cartaoAtivo) {
-		this.cartaoAtivo = cartaoAtivo;
-	}
-
-	public List<RegistroLog> getRegistrosCartao() {
-		return registrosCartao;
-	}
-
-	public void setRegistrosCartao(List<RegistroLog> registrosCartao) {
-		this.registrosCartao = registrosCartao;
-	}
-    
 	
+	@PrePersist
+	public void preSalvar () {
+		setDataCriacao(LocalDateTime.now());
+	}
 }

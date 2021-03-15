@@ -57,7 +57,7 @@ public class secutiryConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests().antMatchers("/gerenciamento-cargo/**").hasAnyRole("USER", "ADMIN")
-				.antMatchers("/gerenciamento-colaborador/**").hasAnyRole("USER", "ADMIN")
+				.antMatchers("/cliente/**").permitAll()
 				.antMatchers("/gerenciamento-departamento/**").hasAnyRole("USER", "ADMIN")
 				.antMatchers("/gerenciamento-endereco/**").hasAnyRole("USER", "ADMIN")
 				.antMatchers(HttpMethod.POST, "/usuario/criar").permitAll()
